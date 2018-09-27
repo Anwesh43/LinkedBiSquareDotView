@@ -5,6 +5,7 @@ package com.anwesh.uiprojects.bisquaredotview
  */
 
 
+import android.app.Activity
 import android.view.View
 import android.view.MotionEvent
 import android.graphics.Canvas
@@ -209,6 +210,14 @@ class BiSquareDotView(ctx : Context) : View(ctx) {
             bds.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : BiSquareDotView {
+            val view : BiSquareDotView = BiSquareDotView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
