@@ -187,4 +187,26 @@ class BiSquareDotView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : BiSquareDotView) {
+
+        private val bds : BiSquareDot = BiSquareDot(0)
+        private val animator : Animator = Animator(view)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#BDBDBD"))
+            bds.draw(canvas, paint)
+            animator.animate {
+                bds.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            bds.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
