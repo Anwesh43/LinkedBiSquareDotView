@@ -163,4 +163,28 @@ class BiSquareDotView(ctx : Context) : View(ctx) {
             return this
         }
     }
+
+    data class BiSquareDot(var i : Int) {
+
+        private var root : BSDNode = BSDNode(0)
+        private var curr : BSDNode = root
+        private var dir : Int = 1
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            root.draw(canvas, paint)
+        }
+
+        fun update(cb : (Int, Float) -> Unit) {
+            curr.update {i, scl ->
+                curr = curr.getNext(dir) {
+                    dir *= -1
+                }
+                cb(i, scl)
+            }
+        }
+
+        fun startUpdating(cb : () -> Unit) {
+            curr.startUpdating(cb)
+        }
+    }
 }
